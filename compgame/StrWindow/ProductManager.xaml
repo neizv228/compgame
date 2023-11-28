@@ -1,0 +1,66 @@
+﻿<Page x:Class="compgame.StrWindow.ProductManager"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:compgame.StrWindow"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+     Title="Окно менеджера">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Введите для поиска:" Width="175" TextAlignment="Justify" FontFamily="Arial" Margin="10,0,0,0" />
+                <TextBox Width="225" Name="TBox" TextChanged="TBox_T" FontFamily="Arial"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Сортировка" Width="75" FontFamily="Arial" Margin="10,0,0,0" />
+                <ComboBox Width="120" Name="ComboTypeSort" SelectionChanged="ComboTypeSort_Sel" SelectedIndex="0" ItemsSource="{Binding SortList}" FontFamily="Arial"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Фильтрация" Width="75" FontFamily="Arial" Margin="10,0,0,0"/>
+                <ComboBox Width="150" Name="ComboTypeFilter" SelectionChanged="ComboTypeFilter_Sel" DisplayMemberPath="ManufacturerName" SelectedIndex="0" ItemsSource="{Binding ManufacturerList}" FontFamily="Arial"/>
+            </StackPanel>
+        </WrapPanel>
+        <ListView Grid.Row="2" Name="ProductListView" ItemsSource="{Binding ProductList}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{Binding BackgroundColor}" BorderBrush="Black" BorderThickness="3">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                               <TextBlock Text="{Binding TovarName,StringFormat={}Наименование: {0}}" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="15" Margin="10,10,0,0" Cursor="AppStarting" FontWeight="Bold" />
+                                <TextBlock Text="{Binding TovarDescription,StringFormat={}Описание: {0}}" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="15" Margin="10,50,0,0" />
+                                <TextBlock Text="{Binding Manufacturer.ManufacturerName, StringFormat=Производитель: {0}}" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="15"  Margin="10,90,0,0"/>
+                                <TextBlock Text="{Binding TovarCost, StringFormat={}Цена: {0}руб.}" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="15" Margin="10,110,0,0"/>
+                                <TextBlock Text="{Binding TovarQuantityInStock, StringFormat={}Количество: {0}}" Grid.Row="0" Grid.Column="1" FontFamily="Arial" FontSize="15"  Margin="10,150,0,0" />
+
+                                <Image Name="Img" Source="{Binding Path=TovarPhoto}" Stretch="Fill" Width="200" Height="200" Grid.RowSpan="2"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
+       
+    
